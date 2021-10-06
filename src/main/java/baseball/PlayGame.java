@@ -40,9 +40,7 @@ public class PlayGame {
 		}
 
 		System.out.println(printAnswer());
-
-		init();
-		getInput();
+		endGame();
 
 		return true;
 	}
@@ -72,5 +70,28 @@ public class PlayGame {
 		}
 
 		return "낫싱";
+	}
+
+	private boolean endGame() {
+		if (strike == RandomNumber.answerLength) {
+			System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 끝");
+			restartGame();
+			return false;
+		}
+
+		init();
+		getInput();
+		return true;
+	}
+
+	private void restartGame() {
+		System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+		isPlay = Console.readLine();
+
+		if (!isPlay.equals(Application.PLAY_GAME) && !isPlay.equals(Application.QUIT_GAME)) {
+			CheckInputValue checkVal = new CheckInputValue(isPlay);
+			checkVal.printErrorMessage("1 또는 2를 입력해주세요.");
+			restartGame();
+		}
 	}
 }
